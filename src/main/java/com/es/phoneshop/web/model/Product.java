@@ -4,19 +4,20 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Product {
-    Long id;
-    String code;
-    String description;
-    BigDecimal price;
-    Currency currency;
-    Integer stock;
+    private Long id;
+    private String code;
+    private String description;
+    private BigDecimal price;
+    private Currency currency;
+    private Integer stock;
+    private static Long count = 1L;
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId() {
+        this.id = count++;
     }
 
     public String getCode() {
