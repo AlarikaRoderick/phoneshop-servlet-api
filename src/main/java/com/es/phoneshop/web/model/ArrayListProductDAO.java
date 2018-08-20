@@ -11,14 +11,14 @@ public class ArrayListProductDAO implements ProductDAO {
     private static List<Product> products;
 
     private static Long idCount = 1L;
+    private static ArrayListProductDAO instance = null;
 
     public static synchronized Long createId(){
         return idCount++;
     }
 
-
-    public ArrayListProductDAO() {
-        products = getInstance();
+    private ArrayListProductDAO() {
+        products = new ArrayList<Product>();
 
         save(new Product(createId(), "first code", "first description", new BigDecimal(250), Currency.getInstance(Locale.US), 200));
         save(new Product(createId(), "second code", "second description", new BigDecimal(300), Currency.getInstance(Locale.US), 0));
@@ -27,14 +27,14 @@ public class ArrayListProductDAO implements ProductDAO {
 
     }
 
-    public static List<Product> getInstance(){
-        if (products == null){
-            synchronized (Product.class){
-                if (products == null)
-                    products = new ArrayList<Product>();
+    public static ArrayListProductDAO getInstance(){
+        if (instance == null){
+            synchronized (ArrayListProductDAO.class){
+                if (instance == null)
+                    instance = new ArrayListProductDAO();
             }
         }
-        return products;
+        return instance;
     }
 
     public Product getProduct(Long id) {

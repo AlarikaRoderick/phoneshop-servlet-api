@@ -13,17 +13,16 @@ import java.util.ArrayList;
 
 public class ProductListServlet extends HttpServlet {
 
-    private ProductDAO productDAO;
+    private ArrayListProductDAO arrayListProductDAO = ArrayListProductDAO.getInstance();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        productDAO = new ArrayListProductDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("products", productDAO.findProducts());
+        request.setAttribute("products", arrayListProductDAO.findProducts());
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
 }
