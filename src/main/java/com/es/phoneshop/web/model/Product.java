@@ -12,6 +12,16 @@ public class Product {
     private Integer stock;
     //private static Long count = 1L;
 
+
+    public Product(Long id, String code, String description, BigDecimal price, Currency currency, Integer stock) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.price = price;
+        this.currency = currency;
+        this.stock = stock;
+    }
+
     public Long getId() {
         return id;
     }

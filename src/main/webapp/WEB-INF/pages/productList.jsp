@@ -23,7 +23,7 @@
       <td>${product.id}</td>
       <td>${product.code}</td>
       <td>${product.description}</td>
-      <td>${product.price} $</td>
+      <td>${product.price} ${product.currency}</td>
       <td>${product.stock}</td>
     </tr>
   </c:forEach>

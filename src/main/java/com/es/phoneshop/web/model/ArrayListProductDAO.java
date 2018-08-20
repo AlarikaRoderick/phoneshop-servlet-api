@@ -2,7 +2,9 @@ package com.es.phoneshop.web.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDAO implements ProductDAO {
@@ -14,26 +16,14 @@ public class ArrayListProductDAO implements ProductDAO {
         return idCount++;
     }
 
-    public void createProduct(Product product, String code, String description, BigDecimal price, Integer stock){
-        product = new Product();
-        product.setId(createId());
-        product.setCode(code);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setStock(stock);
-        save(product);
-
-    }
 
     public ArrayListProductDAO() {
         products = getInstance();
 
-        Product product = null;
-
-        createProduct(product, "first code", "first description", new BigDecimal(250), 200);
-        createProduct(product, "second code", "second description", new BigDecimal(300), 0);
-        createProduct(product, "third code", "third description", null, 300);
-        createProduct(product, "fourth code", "fourth description", new BigDecimal(130), 150);
+        save(new Product(createId(), "first code", "first description", new BigDecimal(250), Currency.getInstance(Locale.US), 200));
+        save(new Product(createId(), "second code", "second description", new BigDecimal(300), Currency.getInstance(Locale.US), 0));
+        save(new Product(createId(), "third code", "third description", null, Currency.getInstance(Locale.US),300));
+        save(new Product(createId(), "fourth code", "fourth description", new BigDecimal(130), Currency.getInstance(Locale.US),150));
 
     }
 
@@ -64,8 +54,6 @@ public class ArrayListProductDAO implements ProductDAO {
     }
 
     public void remove(Long id) {
-        for (Product product : products){
-            if (product.getId().equals(id)) products.remove(product);
-        }
+        products.remove(getProduct(id));
     }
 }
