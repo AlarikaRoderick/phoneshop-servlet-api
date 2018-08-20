@@ -14,40 +14,27 @@ public class ArrayListProductDAO implements ProductDAO {
         return idCount++;
     }
 
+    public void createProduct(Product product, String code, String description, BigDecimal price, Integer stock){
+        product = new Product();
+        product.setId(createId());
+        product.setCode(code);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setStock(stock);
+        save(product);
+
+    }
+
     public ArrayListProductDAO() {
         products = getInstance();
 
-        Product product = new Product();
-        product.setId(createId());
-        product.setCode("first code");
-        product.setDescription("first description");
-        product.setPrice(new BigDecimal(250));
-        product.setStock(200);
-        save(product);
+        Product product = null;
 
-        product = new Product();
-        product.setId(createId());
-        product.setCode("second code");
-        product.setDescription("second description");
-        product.setPrice(new BigDecimal(300));
-        product.setStock(0);
-        save(product);
+        createProduct(product, "first code", "first description", new BigDecimal(250), 200);
+        createProduct(product, "second code", "second description", new BigDecimal(300), 0);
+        createProduct(product, "third code", "third description", null, 300);
+        createProduct(product, "fourth code", "fourth description", new BigDecimal(130), 150);
 
-        product = new Product();
-        product.setId(createId());
-        product.setCode("third code");
-        product.setDescription("third description");
-        product.setPrice(null);
-        product.setStock(300);
-        save(product);
-
-        product = new Product();
-        product.setId(createId());
-        product.setCode("fourth code");
-        product.setDescription("fourth description");
-        product.setPrice(new BigDecimal(130));
-        product.setStock(150);
-        save(product);
     }
 
     public static List<Product> getInstance(){
