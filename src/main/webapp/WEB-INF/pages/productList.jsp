@@ -12,6 +12,7 @@
       <td>Description</td>
       <td>Price</td>
       <td>Stock</td>
+      <td>ID</td>
     </tr>
   </thead>
   <c:forEach var="product" items="${products}">
@@ -23,6 +24,7 @@
       <td>${product.description}</td>
       <td>${product.price} $</td>
       <td>${product.stock}</td>
+      <td>${product.id}</td>
     </tr>
   </c:forEach>
 </table>

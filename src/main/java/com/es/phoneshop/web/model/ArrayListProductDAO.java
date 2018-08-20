@@ -8,11 +8,17 @@ import java.util.stream.Collectors;
 public class ArrayListProductDAO implements ProductDAO {
     private static List<Product> products;
 
+    private static Long idCount = 1L;
+
+    public static synchronized Long createId(){
+        return idCount++;
+    }
+
     public ArrayListProductDAO() {
         products = getInstance();
 
         Product product = new Product();
-        product.setId();
+        product.setId(createId());
         product.setCode("first code");
         product.setDescription("first description");
         product.setPrice(new BigDecimal(250));
@@ -20,7 +26,7 @@ public class ArrayListProductDAO implements ProductDAO {
         save(product);
 
         product = new Product();
-        product.setId();
+        product.setId(createId());
         product.setCode("second code");
         product.setDescription("second description");
         product.setPrice(new BigDecimal(300));
@@ -28,7 +34,7 @@ public class ArrayListProductDAO implements ProductDAO {
         save(product);
 
         product = new Product();
-        product.setId();
+        product.setId(createId());
         product.setCode("third code");
         product.setDescription("third description");
         product.setPrice(null);
@@ -36,7 +42,7 @@ public class ArrayListProductDAO implements ProductDAO {
         save(product);
 
         product = new Product();
-        product.setId();
+        product.setId(createId());
         product.setCode("fourth code");
         product.setDescription("fourth description");
         product.setPrice(new BigDecimal(130));

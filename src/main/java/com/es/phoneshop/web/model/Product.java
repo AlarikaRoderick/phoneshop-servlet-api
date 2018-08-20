@@ -10,14 +10,14 @@ public class Product {
     private BigDecimal price;
     private Currency currency;
     private Integer stock;
-    private static Long count = 1L;
+    //private static Long count = 1L;
 
     public Long getId() {
         return id;
     }
 
-    public void setId() {
-        this.id = count++;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {
