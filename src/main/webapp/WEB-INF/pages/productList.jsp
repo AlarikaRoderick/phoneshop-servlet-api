@@ -8,11 +8,11 @@
 <table>
   <thead>
     <tr>
+      <td>ID</td>
       <td>Code</td>
       <td>Description</td>
       <td>Price</td>
       <td>Stock</td>
-      <td>ID</td>
     </tr>
   </thead>
   <c:forEach var="product" items="${products}">
@@ -20,11 +20,11 @@
       <%--<td>
         <img src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
       </td>--%>
+      <td>${product.id}</td>
       <td>${product.code}</td>
       <td>${product.description}</td>
       <td>${product.price} $</td>
       <td>${product.stock}</td>
-      <td>${product.id}</td>
     </tr>
   </c:forEach>
 </table>
