@@ -41,7 +41,7 @@ public class ArrayListProductDAOTest {
 
     @Test
     public void findProducts() {
-        assertNotNull(productDAO.findProducts());
+        assertTrue(!productDAO.findProducts().isEmpty());
     }
 
     @Test
