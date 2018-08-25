@@ -17,11 +17,10 @@
   </thead>
   <c:forEach var="product" items="${products}">
     <tr>
-      <%--<td>
-        <img src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
-      </td>--%>
       <td>${product.id}</td>
-      <td>${product.code}</td>
+        <td>
+          <a href="${pageContext.servletContext.contextPath}/products/${product.id}">${product.code}</a>
+        </td>
       <td>${product.description}</td>
       <td>${product.price} ${product.currency}</td>
       <td>${product.stock}</td>

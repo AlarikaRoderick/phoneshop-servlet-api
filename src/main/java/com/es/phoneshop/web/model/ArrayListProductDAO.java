@@ -1,29 +1,22 @@
 package com.es.phoneshop.web.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDAO implements ProductDAO {
     private static List<Product> products;
 
     private static Long idCount = 1L;
-    private static ArrayListProductDAO instance = null;
+    private static volatile ArrayListProductDAO instance = null;
 
     public static synchronized Long createId(){
         return idCount++;
     }
 
     private ArrayListProductDAO() {
-        products = new ArrayList<Product>();
 
-        save(new Product(createId(), "first code", "first description", new BigDecimal(250), Currency.getInstance(Locale.US), 200));
-        save(new Product(createId(), "second code", "second description", new BigDecimal(300), Currency.getInstance(Locale.US), 0));
-        save(new Product(createId(), "third code", "third description", null, Currency.getInstance(Locale.US),300));
-        save(new Product(createId(), "fourth code", "fourth description", new BigDecimal(130), Currency.getInstance(Locale.US),150));
+        products = new ArrayList<Product>();
 
     }
 

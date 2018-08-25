@@ -2,6 +2,7 @@ package com.es.phoneshop.web.model;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Objects;
 
 public class Product {
     private Long id;
@@ -69,4 +70,5 @@ public class Product {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
 }
