@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 
 import static com.es.phoneshop.web.model.ArrayListProductDAO.createId;
@@ -26,34 +27,48 @@ public class ArrayListProductDAOTest {
 
     @Test
     public void createId() {
-        assertNotNull(ArrayListProductDAO.createId());
+        Long id = ArrayListProductDAO.createId();
+        assertNotNull(id);
     }
 
     @Test
     public void getInstance() {
-        assertNotNull(ArrayListProductDAO.getInstance());
+        ArrayListProductDAO instance = ArrayListProductDAO.getInstance();
+        assertNotNull(instance);
     }
 
     @Test
     public void getProduct() {
-        assertEquals(1, productDAO.getProduct(1L).getId().longValue());
+        Long id = 2L;
+        productDAO.save(new Product(id, "second code", "second description",
+                new BigDecimal(100), Currency.getInstance(Locale.US), 100));
+        Product product = productDAO.getProduct(id);
+        assertEquals(id, product.getId());
     }
 
     @Test
     public void findProducts() {
-        assertTrue(!productDAO.findProducts().isEmpty());
+        Long id = 4L;
+        productDAO.save(new Product(id, "fourth code", "fourth description",
+                new BigDecimal(499), Currency.getInstance(Locale.US), 10));
+        List<Product> productList = productDAO.findProducts();
+        assertFalse(productList.isEmpty());
     }
 
     @Test
     public void save() {
-        productDAO.save(new Product(ArrayListProductDAO.createId(), "second code",
-                "second description", new BigDecimal(100), Currency.getInstance(Locale.US), 300));
-        assertNotNull(productDAO.getProduct(2L));
+        Long id = 3L;
+        productDAO.save(new Product(id, "third code", "third description",
+                new BigDecimal(100), Currency.getInstance(Locale.US), 300));
+        Product product = productDAO.getProduct(id);
+        assertNotNull(product);
     }
 
     @Test
     public void remove() {
-        productDAO.remove(1L);
-        assertNull(productDAO.getProduct(1L));
+        Long id = 1L;
+        productDAO.remove(id);
+        Product product = productDAO.getProduct(id);
+        assertNull(product);
     }
 }
