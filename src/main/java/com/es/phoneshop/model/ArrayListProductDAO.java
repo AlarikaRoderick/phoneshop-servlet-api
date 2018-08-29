@@ -1,7 +1,10 @@
-package com.es.phoneshop.web.model;
+package com.es.phoneshop.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDAO implements ProductDAO {
@@ -15,7 +18,6 @@ public class ArrayListProductDAO implements ProductDAO {
     }
 
     private ArrayListProductDAO() {
-
         products = new ArrayList<Product>();
 
     }
@@ -31,14 +33,16 @@ public class ArrayListProductDAO implements ProductDAO {
     }
 
     public Product getProduct(Long id) {
-        for (Product product : products){
-            if (product.getId().equals(id)) return product;
-        }
-        return null;
+        return products.stream()
+                .filter((p) -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new NumberFormatException("No products with such id."));
     }
 
     public List<Product> findProducts() {
-        List<Product> productList = products.stream().filter(p->p.getPrice() != null && p.getStock() > 0).collect(Collectors.toList());
+        List<Product> productList = products.stream()
+                .filter(p->p.getPrice() != null && p.getStock() > 0)
+                .collect(Collectors.toList());
         return productList;
     }
 

@@ -1,4 +1,4 @@
-package com.es.phoneshop.web.model;
+package com.es.phoneshop.model;
 
 import java.util.List;
 

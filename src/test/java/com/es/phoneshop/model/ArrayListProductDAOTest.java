@@ -1,6 +1,5 @@
-package com.es.phoneshop.web.model;
+package com.es.phoneshop.model;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +8,6 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-import static com.es.phoneshop.web.model.ArrayListProductDAO.createId;
 import static org.junit.Assert.*;
 
 public class ArrayListProductDAOTest {
@@ -19,10 +17,8 @@ public class ArrayListProductDAOTest {
     @Before
     public void setUp() throws Exception {
         productDAO = ArrayListProductDAO.getInstance();
-
         productDAO.save(new Product(ArrayListProductDAO.createId(), "first code",
                 "first description", new BigDecimal(250), Currency.getInstance(Locale.US), 200));
-
     }
 
     @Test

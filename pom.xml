@@ -31,17 +31,11 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.12</version>
-          <scope>compile</scope>
-      </dependency>
   </dependencies>
   <properties>
     <maven.compiler.source>6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
-  </properties>
+    </properties>
   <build>
     <finalName>phoneshop-servlet-api</finalName>
     <pluginManagement>
@@ -57,6 +51,7 @@
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.1</version>
               <configuration>
                   <source>8</source>
                   <target>8</target>
