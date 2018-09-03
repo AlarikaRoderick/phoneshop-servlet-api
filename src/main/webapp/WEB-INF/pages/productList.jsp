@@ -2,10 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:useBean id="products" type="java.util.ArrayList" scope="request"/>
+<jsp:include page="/WEB-INF/common/header.jsp"/>
+<html>
+<head>
+  <title>Product list page</title>
+</head>
+<body>
+<div>
 <p>
   Hello from product list!
 </p>
-<table>
+<table bgcolor="#faebd7" border="2px">
   <thead>
     <tr>
       <td>ID</td>
@@ -27,3 +34,7 @@
     </tr>
   </c:forEach>
 </table>
+</div>
+</body>
+</html>
+<jsp:include page="/WEB-INF/common/footer.jsp"/>
