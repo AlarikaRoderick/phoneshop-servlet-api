@@ -1,5 +1,6 @@
 package com.es.phoneshop.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
 
@@ -10,16 +11,16 @@ public class Product {
     private BigDecimal price;
     private Currency currency;
     private Integer stock;
-    //private static Long count = 1L;
+    private Integer firstStock;
 
-
-    public Product(Long id, String code, String description, BigDecimal price, Currency currency, Integer stock) {
+    public Product(Long id, String code, String description, BigDecimal price, Currency currency, Integer stock, Integer firstStock) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.price = price;
         this.currency = currency;
         this.stock = stock;
+        this.firstStock = firstStock;
     }
 
     public Long getId() {
@@ -70,4 +71,7 @@ public class Product {
         this.stock = stock;
     }
 
+    public Integer getFirstStock() { return firstStock; }
+
+    public void setFirstStock(Integer firstStock) { this.firstStock = firstStock; }
 }

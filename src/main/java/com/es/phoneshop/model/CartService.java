@@ -35,20 +35,36 @@ public class CartService {
         return cart;
     }
 
-    public synchronized void add(Cart cart, Product product, int quantity){
+    private void addOrUpdate(Cart cart, Product product, int quantity, boolean add){
         List<CartItem> cartItems = cart.getCartItems();
 
         Optional<CartItem> cartItemOptional = cartItems.stream()
                 .filter(ci -> ci.getProduct().equals(product))
                 .findAny();
+
         if(cartItemOptional.isPresent()) {
             CartItem cartItem = cartItemOptional.get();
-            cartItem.setQuantity(cartItem.getQuantity() + quantity);
-            product.setStock(product.getStock() - quantity);
+            int newQuantity = add ? cartItem.getQuantity() + quantity : quantity;
+            cartItem.setQuantity(newQuantity);
+            if(add) {
+                product.setStock(product.getStock() - quantity);
+            }
+            else{
+                int firstStock = product.getFirstStock();
+                product.setStock(firstStock - quantity);
+            }
         }
         else{
             cart.getCartItems().add(new CartItem(product, quantity));
             product.setStock(product.getStock() - quantity);
         }
+    }
+
+    public void add(Cart cart, Product product, int quantity){
+        addOrUpdate(cart, product, quantity, true);
+    }
+
+    public void update(Cart cart, Product product, int quantity){
+        addOrUpdate(cart, product, quantity, false);
     }
 }
