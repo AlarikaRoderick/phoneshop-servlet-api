@@ -1,4 +1,13 @@
-<table>
+
+<jsp:include page="/WEB-INF/common/header.jsp"/>
+
+<html>
+<head>
+    <title>Product page</title>
+</head>
+<body>
+
+<table bgcolor="#faebd7" border="2px">
     <thead>
     <tr>
         <td>ID</td>
@@ -22,3 +31,6 @@
     </tr>
     </thead>
 </table>
+</body>
+</html>
+<jsp:include page="/WEB-INF/common/footer.jsp"/>

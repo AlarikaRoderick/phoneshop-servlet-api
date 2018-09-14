@@ -2,7 +2,6 @@ package com.es.phoneshop.model;
 
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Objects;
 
 public class Product {
     private Long id;

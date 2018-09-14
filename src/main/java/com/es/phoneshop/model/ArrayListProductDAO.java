@@ -1,10 +1,7 @@
 package com.es.phoneshop.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDAO implements ProductDAO {
