@@ -29,9 +29,6 @@ public class CartService {
             cart = (Cart) session.getAttribute(CART_NAME);
             if (cart == null) {
                 cart = new Cart();
-                for (Product product : ArrayListProductDAO.getInstance().findProducts()) {
-                    add(cart, product, 1);
-                }
                 session.setAttribute(CART_NAME, cart);
             }
         }

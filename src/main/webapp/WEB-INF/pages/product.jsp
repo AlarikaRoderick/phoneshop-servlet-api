@@ -1,13 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/common/header.jsp"/>
+<fmt:setBundle basename="i18n.messages"/>
 
 <html>
 <head>
     <title>Product page</title>
 </head>
 <body>
-<form method="post">
+<form method="post" action="<c:url value="/products"/>/${product.id} ">
+    <c:if test="${not empty addedQuantity}">
+        Added ${addedQuantity} successfuly
+    </c:if>
 <table bgcolor="#faebd7" border="2px" cellpadding="15px">
     <thead>
     <tr>
@@ -32,11 +37,12 @@
     </tr>
     <tr>
         <td>
-            <%--@declare id="quantity"--%>
-            <input type="text" name="quantity" style="text-align: right"
-            value="${empty param.quantity ? 1 : param.quantity}">
+            <input type="text" name="quantity" id="quantity" style="text-align: right"
+            value="${empty param.quantity ? 1 : param.quantity}"><br>
             <c:if test="${error}">
-                <label for="quantity" style="color: red; display: block">${error}</label>
+                <label for="quantity" style="color: red; display: block">
+                    ${errorMessage}
+                </label>
             </c:if>
         </td>
         <td>
