@@ -16,16 +16,18 @@
         <td>Code</td>
         <td>Description</td>
         <td>Price</td>
+        <td>Quantity</td>
     </tr>
     </thead>
     <c:forEach var="cartItem" items="${cart.cartItems}">
         <tr>
             <td>${cartItem.product.id}</td>
             <td>
-                <a href="${pageContext.servletContext.contextPath}/products/${product.id}">${cartItem.product.code}</a>
+                <a href="${pageContext.servletContext.contextPath}/products/${cartItem.product.id}">${cartItem.product.code}</a>
             </td>
             <td>${cartItem.product.description}</td>
             <td>${cartItem.product.price} ${cartItem.product.currency}</td>
+            <td>${cartItem.quantity}</td>
         </tr>
     </c:forEach>
 </table>
