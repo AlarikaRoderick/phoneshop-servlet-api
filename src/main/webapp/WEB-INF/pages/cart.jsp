@@ -20,7 +20,7 @@
             <td>Quantity</td>
         </tr>
         </thead>
-        <c:forEach var="cartItem" items="${cart.cartItems}">
+        <c:forEach var="cartItem" items="${cart.cartItems}" varStatus="status">
             <tr>
                 <td>${cartItem.product.id}</td>
                 <td>
@@ -31,6 +31,7 @@
                 <td>
                     <input type="hidden" name="productId" value="${cartItem.product.id}">
                     <input name="quantity" value="${cartItem.quantity}">
+                    ${errors[status.index]}
                 </td>
             </tr>
         </c:forEach>

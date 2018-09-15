@@ -1,8 +1,8 @@
 package com.es.phoneshop.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Objects;
 
 public class Product {
     private Long id;
@@ -11,16 +11,14 @@ public class Product {
     private BigDecimal price;
     private Currency currency;
     private Integer stock;
-    private Integer firstStock;
 
-    public Product(Long id, String code, String description, BigDecimal price, Currency currency, Integer stock, Integer firstStock) {
+    public Product(Long id, String code, String description, BigDecimal price, Currency currency, Integer stock) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.price = price;
         this.currency = currency;
         this.stock = stock;
-        this.firstStock = firstStock;
     }
 
     public Long getId() {
@@ -71,7 +69,16 @@ public class Product {
         this.stock = stock;
     }
 
-    public Integer getFirstStock() { return firstStock; }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
 
-    public void setFirstStock(Integer firstStock) { this.firstStock = firstStock; }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

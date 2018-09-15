@@ -33,7 +33,7 @@ public class ArrayListProductDAO implements ProductDAO {
         return products.stream()
                 .filter((p) -> p.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new NumberFormatException("No products with such id."));
+                .orElseThrow(() -> new IllegalArgumentException("No products with such id."));
     }
 
     public List<Product> findProducts() {

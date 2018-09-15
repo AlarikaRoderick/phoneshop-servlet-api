@@ -1,7 +1,5 @@
 package com.es.phoneshop.model;
 
-import java.io.Serializable;
-
 public class CartItem {
     private Product product;
     private int quantity;
