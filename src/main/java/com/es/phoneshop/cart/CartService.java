@@ -24,7 +24,7 @@ public class CartService {
         return instance;
     }
 
-    public Cart getCart(HttpServletRequest request){
+    public synchronized Cart getCart(HttpServletRequest request){
         HttpSession session = request.getSession();
         Cart cart = null;
         synchronized (session) {
@@ -37,7 +37,7 @@ public class CartService {
         return cart;
     }
 
-    private void addOrUpdate(Cart cart, Product product, int quantity, boolean add){
+    private synchronized void addOrUpdate(Cart cart, Product product, int quantity, boolean add){
         List<CartItem> cartItems = cart.getCartItems();
         Optional<CartItem> cartItemOptional = cartItems.stream()
                 .filter(ci -> ci.getProduct().equals(product))
