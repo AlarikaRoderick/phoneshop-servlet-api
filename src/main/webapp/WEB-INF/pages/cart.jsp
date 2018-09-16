@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="cart" type="com.es.phoneshop.model.Cart" scope="request"/>
+<jsp:useBean id="cart" type="com.es.phoneshop.cart.Cart" scope="request"/>
 <jsp:include page="/WEB-INF/common/header.jsp"/>
 <html>
 <head>

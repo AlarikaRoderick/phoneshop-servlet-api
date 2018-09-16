@@ -1,5 +1,7 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.cart.Cart;
+import com.es.phoneshop.cart.CartService;
 import com.es.phoneshop.exception.NotEnoughProductsException;
 import com.es.phoneshop.exception.QuantityUnderZeroException;
 import com.es.phoneshop.model.*;
@@ -9,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Locale;
 
 public class ProductDetailsPageServlet extends HttpServlet {
 
