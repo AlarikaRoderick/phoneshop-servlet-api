@@ -9,8 +9,11 @@
     <title>Cart page</title>
 </head>
 <body>
-<c:if test="${not empty param.success}">
-    Updated successfully
+<c:if test="${not empty param.successDelete}">
+    Delete successfully
+</c:if>
+<c:if test="${not empty param.successUpdate}">
+    Update successfully
 </c:if>
 <form method="post">
     <table bgcolor="#faebd7" border="2px">
@@ -42,7 +45,7 @@
                     </c:if>
                 </td>
                 <td>
-                    <button type="submit" value="${status.index}">Delete</button>
+                    <button type="submit" name="delete" value="${status.index}">Delete</button>
                 </td>
             </tr>
         </c:forEach>

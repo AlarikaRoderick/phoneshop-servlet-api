@@ -40,28 +40,37 @@ public class CartPageServlet extends HttpServlet {
         String[] productIds = request.getParameterValues("productId");
         String[] quantities = request.getParameterValues("quantity");
         String[] errors = new String[productIds.length];
+        String delValue = request.getParameter("delete");
         boolean hasErrors = false;
         Product product;
-        for (int i = 0; i < productIds.length; i++) {
-            product = productDAO.getProduct(Long.valueOf(productIds[i]));
-            Locale locale = request.getLocale();
-            try {
-                int quantity = DecimalFormat.getInstance(locale).parse(quantities[i]).intValue();
-                if (quantity < 0)
-                    throw new QuantityUnderZeroException(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE);
-                if (quantity > product.getStock())
-                    throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
-                cartService.update(cartService.getCart(request), product, quantity);
-                request.setAttribute("success", true);
-            }catch (ParseException e) {
+        if (delValue != null) {
+            int deletedProductId = Integer.valueOf(delValue);
+            product = cartService.getCart(request).getCartItems().get(deletedProductId).getProduct();
+            cartService.delete(cartService.getCart(request), product, deletedProductId);
+            request.setAttribute("successDelete", true);
+        }else {
+            for (int i = 0; i < productIds.length; i++) {
+                product = productDAO.getProduct(Long.valueOf(productIds[i]));
+                Locale locale = request.getLocale();
+                try {
+                    int quantity = DecimalFormat.getInstance(locale).parse(quantities[i]).intValue();
+                    if (quantity < 0)
+                        throw new QuantityUnderZeroException(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE);
+                    if (quantity > product.getStock())
+                        throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
+                    cartService.update(cartService.getCart(request), product, quantity);
+                    request.setAttribute("successUpdate", true);
+                    response.sendRedirect(request.getRequestURI() + "?successUpdate=" + quantity);
+                } catch (ParseException e) {
                     errors[i] = "not a number";
                     hasErrors = true;
-            }catch (QuantityUnderZeroException e) {
+                } catch (QuantityUnderZeroException e) {
                     errors[i] = QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE;
                     hasErrors = true;
-            }catch (NotEnoughProductsException e) {
+                } catch (NotEnoughProductsException e) {
                     errors[i] = NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE;
                     hasErrors = true;
+                }
             }
         }
         if(hasErrors) {
@@ -70,7 +79,7 @@ public class CartPageServlet extends HttpServlet {
             doGet(request, response);
         }
         else {
-            response.sendRedirect("cart?success=true");
+            doGet(request, response);
         }
     }
 }
