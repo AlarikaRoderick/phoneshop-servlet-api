@@ -54,7 +54,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
         cartService.add(cart, product, quantity);
         request.setAttribute("addedQuantity", quantity);
         showProductListPage(product, request, response);
-
     }
 
     private void showProductListPage(Product product, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

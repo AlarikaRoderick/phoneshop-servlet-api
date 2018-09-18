@@ -9,15 +9,19 @@
     <title>Cart page</title>
 </head>
 <body>
+<c:if test="${not empty param.success}">
+    Updated successfully
+</c:if>
 <form method="post">
     <table bgcolor="#faebd7" border="2px">
         <thead>
         <tr>
-            <td>ID</td>
-            <td>Code</td>
-            <td>Description</td>
-            <td>Price</td>
-            <td>Quantity</td>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <c:forEach var="cartItem" items="${cart.cartItems}" varStatus="status">
@@ -30,8 +34,15 @@
                 <td>${cartItem.product.price} ${cartItem.product.currency}</td>
                 <td>
                     <input type="hidden" name="productId" value="${cartItem.product.id}">
-                    <input name="quantity" value="${cartItem.quantity}">
-                    ${errors[status.index]}
+                    <input name="quantity" id="quantity${status.index}" value="${quantities[status.index] != null ? quantities[status.index] : cartItem.quantity}">
+                    <c:if test="${not empty errors[status.index]}">
+                        <label for="quantity${status.index}" style="color: red; display: block">
+                            ${errors[status.index]}
+                        </label>
+                    </c:if>
+                </td>
+                <td>
+                    <button type="submit" value="${status.index}">Delete</button>
                 </td>
             </tr>
         </c:forEach>

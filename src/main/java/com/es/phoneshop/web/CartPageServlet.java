@@ -1,5 +1,6 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.cart.Cart;
 import com.es.phoneshop.exception.NotEnoughProductsException;
 import com.es.phoneshop.exception.QuantityUnderZeroException;
 import com.es.phoneshop.model.ArrayListProductDAO;
@@ -39,27 +40,37 @@ public class CartPageServlet extends HttpServlet {
         String[] productIds = request.getParameterValues("productId");
         String[] quantities = request.getParameterValues("quantity");
         String[] errors = new String[productIds.length];
-        for(int i=0; i<productIds.length; i++){
-            Product product = productDAO.getProduct(Long.valueOf(productIds[i]));
+        boolean hasErrors = false;
+        Product product;
+        for (int i = 0; i < productIds.length; i++) {
+            product = productDAO.getProduct(Long.valueOf(productIds[i]));
             Locale locale = request.getLocale();
-            try{
+            try {
                 int quantity = DecimalFormat.getInstance(locale).parse(quantities[i]).intValue();
                 if (quantity < 0)
                     throw new QuantityUnderZeroException(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE);
                 if (quantity > product.getStock())
                     throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
                 cartService.update(cartService.getCart(request), product, quantity);
-                response.sendRedirect("cart");
-                return;
-            }catch (ParseException e){
-                errors[i] = "not a number";
-            }catch (QuantityUnderZeroException e){
-                errors[i] = QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE;
-            }catch (NotEnoughProductsException e){
-                errors[i] = NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE;
+                request.setAttribute("success", true);
+            }catch (ParseException e) {
+                    errors[i] = "not a number";
+                    hasErrors = true;
+            }catch (QuantityUnderZeroException e) {
+                    errors[i] = QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE;
+                    hasErrors = true;
+            }catch (NotEnoughProductsException e) {
+                    errors[i] = NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE;
+                    hasErrors = true;
             }
         }
-        request.setAttribute("errors", errors);
-        doGet(request, response);
+        if(hasErrors) {
+            request.setAttribute("errors", errors);
+            request.setAttribute("quantities", quantities);
+            doGet(request, response);
+        }
+        else {
+            response.sendRedirect("cart?success=true");
+        }
     }
 }
