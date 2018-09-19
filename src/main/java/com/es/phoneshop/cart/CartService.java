@@ -60,7 +60,7 @@ public class CartService {
         addOrUpdate(cart, product, quantity, false);
     }
 
-    public void delete(Cart cart, Product product, int id){
+    public void delete(Cart cart, int id){
         synchronized (cart){
             List<CartItem> cartItems = cart.getCartItems();
             cartItems.remove(cartItems.get(id));

@@ -84,9 +84,7 @@ public class CartPageServlet extends HttpServlet {
     }
 
     private void deleteProcess(HttpServletRequest request, String delValue) {
-        Product product;
         int deletedProductId = Integer.valueOf(delValue);
-        product = cartService.getCart(request).getCartItems().get(deletedProductId).getProduct();
-        cartService.delete(cartService.getCart(request), product, deletedProductId);
+        cartService.delete(cartService.getCart(request), deletedProductId);
     }
 }
