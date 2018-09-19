@@ -60,7 +60,8 @@ public class CartPageServlet extends HttpServlet {
                         throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
                     cartService.update(cartService.getCart(request), product, quantity);
                     request.setAttribute("successUpdate", true);
-                    response.sendRedirect(request.getRequestURI() + "?successUpdate=" + quantity);
+                    //response.sendRedirect(request.getRequestURI() + "?successUpdate=" + quantity);
+                    //return;
                 } catch (ParseException e) {
                     errors[i] = "not a number";
                     hasErrors = true;
@@ -79,7 +80,8 @@ public class CartPageServlet extends HttpServlet {
             doGet(request, response);
         }
         else {
-            doGet(request, response);
+            response.sendRedirect( "cart?successUpdate=true");
+
         }
     }
 }

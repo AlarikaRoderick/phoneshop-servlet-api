@@ -9,7 +9,7 @@
     <title>Cart page</title>
 </head>
 <body>
-<c:if test="${not empty param.successDelete}">
+<c:if test="${param.successDelete != null}">
     Delete successfully
 </c:if>
 <c:if test="${not empty param.successUpdate}">
@@ -37,7 +37,8 @@
                 <td>${cartItem.product.price} ${cartItem.product.currency}</td>
                 <td>
                     <input type="hidden" name="productId" value="${cartItem.product.id}">
-                    <input name="quantity" id="quantity${status.index}" value="${quantities[status.index] != null ? quantities[status.index] : cartItem.quantity}">
+                    <input name="quantity" id="quantity${status.index}"
+                           value="${quantities[status.index] != null ? quantities[status.index] : cartItem.quantity}">
                     <c:if test="${not empty errors[status.index]}">
                         <label for="quantity${status.index}" style="color: red; display: block">
                             ${errors[status.index]}
