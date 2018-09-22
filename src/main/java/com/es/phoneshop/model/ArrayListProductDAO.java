@@ -1,5 +1,6 @@
 package com.es.phoneshop.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,25 +30,24 @@ public class ArrayListProductDAO implements ProductDAO {
         return instance;
     }
 
-    public Product getProduct(Long id) {
+    public synchronized Product getProduct(Long id) {
         return products.stream()
                 .filter((p) -> p.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new NumberFormatException("No products with such id."));
+                .orElseThrow(() -> new IllegalArgumentException("No products with such id."));
     }
 
-    public List<Product> findProducts() {
-        List<Product> productList = products.stream()
-                .filter(p->p.getPrice() != null && p.getStock() > 0)
+    public synchronized List<Product> findProducts() {
+        return products.stream()
+                .filter(p->p.getPrice() != null && p.getStock() > 0 && p.getStock() != null && p.getPrice().compareTo(BigDecimal.ZERO) > 0)
                 .collect(Collectors.toList());
-        return productList;
     }
 
-    public void save(Product product) {
+    public synchronized void save(Product product) {
         products.add(product);
     }
 
-    public void remove(Long id) {
+    public synchronized void remove(Long id) {
         products.remove(getProduct(id));
     }
 }

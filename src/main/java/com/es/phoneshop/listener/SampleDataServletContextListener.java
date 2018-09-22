@@ -10,13 +10,12 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Locale;
 
-
 public class SampleDataServletContextListener implements ServletContextListener {
+    private static final String INSERT_SAMPLE_DATA = "insertSampleData";
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-
-        String insertSampleData = servletContextEvent.getServletContext().getInitParameter("insertSampleData");
+        String insertSampleData = servletContextEvent.getServletContext().getInitParameter(INSERT_SAMPLE_DATA);
         if(!Boolean.valueOf(insertSampleData)) return;
 
         ProductDAO productDAO = ArrayListProductDAO.getInstance();

@@ -1,4 +1,6 @@
-package com.es.phoneshop.model;
+package com.es.phoneshop.cart;
+
+import com.es.phoneshop.model.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +24,7 @@ public class CartService {
         return instance;
     }
 
-    public Cart getCart(HttpServletRequest request){
+    public synchronized Cart getCart(HttpServletRequest request){
         HttpSession session = request.getSession();
         Cart cart = null;
         synchronized (session) {
@@ -35,20 +37,26 @@ public class CartService {
         return cart;
     }
 
-    public synchronized void add(Cart cart, Product product, int quantity){
+    private synchronized void addOrUpdate(Cart cart, Product product, int quantity, boolean add){
         List<CartItem> cartItems = cart.getCartItems();
-
         Optional<CartItem> cartItemOptional = cartItems.stream()
                 .filter(ci -> ci.getProduct().equals(product))
                 .findAny();
         if(cartItemOptional.isPresent()) {
             CartItem cartItem = cartItemOptional.get();
-            cartItem.setQuantity(cartItem.getQuantity() + quantity);
-            product.setStock(product.getStock() - quantity);
+            int newQuantity = add ? cartItem.getQuantity() + quantity : quantity;
+            cartItem.setQuantity(newQuantity);
         }
         else{
             cart.getCartItems().add(new CartItem(product, quantity));
-            product.setStock(product.getStock() - quantity);
         }
+    }
+
+    public void add(Cart cart, Product product, int quantity){
+        addOrUpdate(cart, product, quantity, true);
+    }
+
+    public void update(Cart cart, Product product, int quantity){
+        addOrUpdate(cart, product, quantity, false);
     }
 }

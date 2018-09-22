@@ -37,10 +37,6 @@
           <version>2.15.0</version>
       </dependency>
   </dependencies>
-  <properties>
-    <maven.compiler.source>6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
-    </properties>
   <build>
     <finalName>phoneshop-servlet-api</finalName>
     <pluginManagement>
