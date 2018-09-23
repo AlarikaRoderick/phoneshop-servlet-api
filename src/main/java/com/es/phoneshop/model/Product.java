@@ -3,6 +3,7 @@ package com.es.phoneshop.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Product implements Serializable {
@@ -20,6 +21,14 @@ public class Product implements Serializable {
         this.price = price;
         this.currency = currency;
         this.stock = stock;
+    }
+
+    public Product(){
+        this.code = "";
+        this.description = "";
+        this.price = new BigDecimal(0);
+        this.currency = Currency.getInstance(Locale.getDefault());
+        this.stock = 0;
     }
 
     public Long getId() {
