@@ -33,16 +33,19 @@
     </table>
 <form method="post">
     <p>
+        <input type="hidden" name="orderId">
+    </p>
+    <p>
         <label for="name">Name</label>
-        <input name="name" id="name">
+        <input name="name" id="name" required="required">
     </p>
     <p>
         <label for="address">Address</label>
-        <input name="address" id="address">
+        <input name="address" id="address" required="required">
     </p>
     <p>
         <label for="phone">Phone</label>
-        <input name="phone" id="phone">
+        <input name="phone" id="phone" required="required">
     </p>
     <button>Place order</button>
 </form>

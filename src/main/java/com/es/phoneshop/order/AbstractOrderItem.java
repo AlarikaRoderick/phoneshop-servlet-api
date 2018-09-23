@@ -2,7 +2,9 @@ package com.es.phoneshop.order;
 
 import com.es.phoneshop.model.Product;
 
-public class AbstractOrderItem {
+import java.io.Serializable;
+
+public class AbstractOrderItem implements Serializable {
     private Product product;
     private int quantity;
 

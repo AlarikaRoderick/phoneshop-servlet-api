@@ -74,4 +74,14 @@
     <url-pattern>/checkout</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>orderOverviewPageServlet</servlet-name>
+    <servlet-class>com.es.phoneshop.web.OrderOverviewPageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>orderOverviewPageServlet</servlet-name>
+    <url-pattern>/orderOverview/*</url-pattern>
+  </servlet-mapping>
+
 </web-app>

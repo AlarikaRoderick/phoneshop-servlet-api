@@ -1,7 +1,6 @@
 package com.es.phoneshop.order;
 
-import com.es.phoneshop.cart.CartItem;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
