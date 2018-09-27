@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -52,6 +51,9 @@
         </c:forEach>
     </table>
     <input type="submit" value="Update">
+</form>
+<form action="<c:url value="/checkout"/> ">
+    <button>Checkout</button>
 </form>
 </body>
 </html>

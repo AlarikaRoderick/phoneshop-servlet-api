@@ -11,7 +11,7 @@
 <body>
 <form method="post" action="<c:url value="/products"/>/${product.id} ">
     <c:if test="${not empty addedQuantity}">
-        Added ${addedQuantity} successfuly
+        Added ${addedQuantity} successfully
     </c:if>
 <table bgcolor="#faebd7" border="2px" cellpadding="15px">
     <thead>
