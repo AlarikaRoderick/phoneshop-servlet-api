@@ -23,13 +23,7 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
-    public Product(){
-        this.code = "";
-        this.description = "";
-        this.price = new BigDecimal(0);
-        this.currency = Currency.getInstance(Locale.getDefault());
-        this.stock = 0;
-    }
+    public Product(){}
 
     public Long getId() {
         return id;
