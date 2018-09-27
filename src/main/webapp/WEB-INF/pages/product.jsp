@@ -49,6 +49,11 @@
             <input type="submit" value="Add to cart">
         </td>
     </tr>
+    <tr>
+        <td>
+            <input type="submit" name="compare" id="compare" value="Add to comparing">
+        </td>
+    </tr>
     </thead>
 </table>
 </form>

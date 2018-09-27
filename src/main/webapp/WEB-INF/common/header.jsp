@@ -9,6 +9,7 @@
 <header>
 <h3>phoneshop servlet api app</h3>
     <img src="http://mkaistina.ru/wp-content/uploads/2017/03/S7562.jpg" width="150" height="150"><br>
-<a href="${pageContext.servletContext.contextPath}/products">Product list page</a><br>
-<a href="${pageContext.servletContext.contextPath}/cart">Cart page</a>
+    <a href="${pageContext.servletContext.contextPath}/products">Product list page</a><br>
+    <a href="${pageContext.servletContext.contextPath}/cart">Cart page</a><br>
+    <a href="${pageContext.servletContext.contextPath}/compare">Compare page</a>
 </header>

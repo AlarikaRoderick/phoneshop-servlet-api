@@ -10,16 +10,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ProductDetailsPageServlet extends HttpServlet {
 
     private ProductDAO productDAO = ArrayListProductDAO.getInstance();
     private CartService cartService = CartService.getInstance();
+    private static int i = 0;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String idString = request.getPathInfo();
         try {
             request.setAttribute("product", productDAO.getProduct(Long.valueOf(idString.substring(1))));
@@ -33,27 +34,39 @@ public class ProductDetailsPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer quantity;
         Long productId = Long.valueOf(request.getPathInfo().substring(1));
-        Product product = productDAO.getProduct(productId);
-        try{
-             quantity = Integer.valueOf(request.getParameter("quantity"));
-             if (quantity < 0)
-                 throw new QuantityUnderZeroException(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE);
-             if (quantity > product.getStock())
-                 throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
-        }catch (NumberFormatException e){
-            setError("not a number", product, request, response);
-            return;
-        }catch (QuantityUnderZeroException e){
-            setError(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE, product, request, response);
-            return;
-        }catch (NotEnoughProductsException e){
-            setError(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE, product, request, response);
-            return;
+        String comp = request.getParameter("compare");
+        Long[] compareProductIds = new Long[2];
+        if(i < 2) {
+            if (comp != null) {
+                HttpSession session = request.getSession();
+                compareProductIds[i] = productId;
+                i++;
+                session.setAttribute("compare", compareProductIds);
+            }
         }
-        Cart cart = cartService.getCart(request);
-        cartService.add(cart, product, quantity);
-        request.setAttribute("addedQuantity", quantity);
-        showProductListPage(product, request, response);
+        HttpSession session = request.getSession();
+        session.setAttribute("compare", productId);
+        Product product = productDAO.getProduct(productId);
+        try {
+            quantity = Integer.valueOf(request.getParameter("quantity"));
+            if (quantity < 0)
+                throw new QuantityUnderZeroException(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE);
+            if (quantity > product.getStock())
+                    throw new NotEnoughProductsException(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE);
+            } catch (NumberFormatException e) {
+                setError("not a number", product, request, response);
+                return;
+            } catch (QuantityUnderZeroException e) {
+                setError(QuantityUnderZeroException.QUANTITY_UNDER_ZERO_MESSAGE, product, request, response);
+                return;
+            } catch (NotEnoughProductsException e) {
+                setError(NotEnoughProductsException.NOT_ENOUGH_PRODUCTS_MESSAGE, product, request, response);
+                return;
+            }
+            Cart cart = cartService.getCart(request);
+            cartService.add(cart, product, quantity);
+            request.setAttribute("addedQuantity", quantity);
+            showProductListPage(product, request, response);
     }
 
     private void showProductListPage(Product product, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

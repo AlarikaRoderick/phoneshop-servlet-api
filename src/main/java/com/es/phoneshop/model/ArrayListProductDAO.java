@@ -50,4 +50,10 @@ public class ArrayListProductDAO implements ProductDAO {
     public synchronized void remove(Long id) {
         products.remove(getProduct(id));
     }
+
+    public synchronized List<Product> searchProduct(String searchItem){
+        return products.stream()
+                .filter((p) -> p.getCode().contains(searchItem) || p.getDescription().contains(searchItem))
+                .collect(Collectors.toList());
+    }
 }

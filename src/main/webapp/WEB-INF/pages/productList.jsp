@@ -34,6 +34,13 @@
     </tr>
   </c:forEach>
 </table>
+  <br>
+  <form method="post">
+  Input text for search item
+  <input type="text" name="searchItem" id="searchItem"
+         value="${empty param.searchItem ? '' : param.searchItem}">
+  <input type="submit" value="Search">
+  </form>
 </div>
 </body>
 </html>

@@ -83,5 +83,15 @@
     <servlet-name>orderOverviewPageServlet</servlet-name>
     <url-pattern>/orderOverview/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>compareServlet</servlet-name>
+    <servlet-class>com.es.phoneshop.web.CompareServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>compareServlet</servlet-name>
+    <url-pattern>/compare</url-pattern>
+  </servlet-mapping>
 
 </web-app>

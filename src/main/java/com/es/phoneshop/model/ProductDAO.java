@@ -7,4 +7,5 @@ public interface ProductDAO {
     List<Product> findProducts();
     void save(Product product);
     void remove(Long id);
+    List<Product> searchProduct(String searchItem);
 }

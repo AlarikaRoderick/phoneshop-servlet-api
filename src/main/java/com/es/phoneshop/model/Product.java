@@ -3,7 +3,6 @@ package com.es.phoneshop.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Product implements Serializable {
